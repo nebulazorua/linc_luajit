@@ -58,4 +58,4 @@ C:/HaxeToolkit/haxe/lib/linc_luajit/git//linc/linc_lua.h:3:19: fatal error: E:/t
 compilation terminated.
 ```
 
-Just compile with the code on android like this `lime test android -D NO_PRECOMPILED_HEADERS`
+Just compile with this code on android like this `lime test android -D NO_PRECOMPILED_HEADERS` if the error happens ONLY
