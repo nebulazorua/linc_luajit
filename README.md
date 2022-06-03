@@ -45,4 +45,17 @@ class Test {
     }
 
 }
+
 ```
+
+### Note for android:
+If you have a ploblem when you compile with linc_luajit like this
+
+```
+Error: In file included from include/llua/Lua_helper.h:10:0, from ./src/boot.cpp:787:
+C:/HaxeToolkit/haxe/lib/linc_luajit/git//linc/linc_lua.h:3:19: fatal error: E:/therepo/export/release/android/obj/obj/android-v7/__pch/haxe/hxcpp.h: No such file or directory
+#include <hxcpp.h>
+compilation terminated.
+```
+
+Just compile with the code on android like this `lime test android -D NO_PRECOMPILED_HEADERS`
