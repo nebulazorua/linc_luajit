@@ -3,8 +3,8 @@
     <files id='haxe'>
 
         <compilerflag value='-I${LINC_LUA_PATH}/linc/'/>
-        <file name='${LINC_LUA_PATH}/linc/linc_lua.cpp' />
-
+        <file name='${LINC_LUA_PATH}/linc/linc_lua.cpp' if="android"/>
+        <file name='${LINC_LUA_PATH}linc/linc_lua.cpp' unless="android"/>
     </files>
 
     <files id="__main__">
