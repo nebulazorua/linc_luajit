@@ -3,7 +3,7 @@
     <files id='haxe'>
 
         <compilerflag value='-I${LINC_LUA_PATH}/linc/'/>
-        <file name='${LINC_LUA_PATH}linc/linc_lua.cpp' />
+        <file name='${LINC_LUA_PATH}/linc/linc_lua.cpp' />
 
     </files>
 
