@@ -10,7 +10,7 @@ This library works with the Haxe cpp target only.
 ---
 ### Android Libs
 be default, dynamic libs are used,
-but you can use static libs by adding this to build command:
+but you can use static libs instead, by adding this to build command:
 ```
 -D luajit_static
 ```
