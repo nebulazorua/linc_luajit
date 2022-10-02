@@ -601,14 +601,14 @@ class Lua_helper {
 			default:
 				throw("> 5 arguments is not supported");
 		}
-
-		if(ret != null){
-			Convert.toLua(l, ret);
-		}
-
+		
 		/* return the number of results */
-		return 1;
-
+		if(ret == null){
+			return 0;
+		} else {
+			Convert.toLua(l, ret);
+			return 1;
+		}
 	} //callback_handler
 
 }
