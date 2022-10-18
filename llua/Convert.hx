@@ -88,11 +88,11 @@ class Convert {
 				ret = toHaxeObj(l, v);
 			case Lua.LUA_TFUNCTION:
 				var ref = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
-				ret = cast (function():Void {
-					Lua.rawgeti(lua, Lua.LUA_REGISTRYINDEX, ref);
-					if (Lua.isfunction(lua, -1)) Lua.call(lua, 0, 0);
-					LuaL.unref(lua, Lua.LUA_REGISTRYINDEX, ref);
-				}, Void->Void);
+				ret = function():Void {
+					Lua.rawgeti(l, Lua.LUA_REGISTRYINDEX, ref);
+					if (Lua.isfunction(l, -1)) Lua.call(l, 0, 0);
+					LuaL.unref(l, Lua.LUA_REGISTRYINDEX, ref);
+				}
 			// case Lua.LUA_TUSERDATA:
 			// 	ret = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
 			// 	trace("userdata\n");
@@ -104,7 +104,7 @@ class Convert {
 			// 	trace("thread\n");
 			default:
 				ret = null;
-				trace("return value not supported\nvalue:"+v+"\ntype:"+vtype);
+				trace("return value not supported\nvalue: "+v+"\ntype: "+vtype);
 		}
 
 		return ret;
