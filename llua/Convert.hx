@@ -86,9 +86,13 @@ class Convert {
 				ret = Lua.tostring(l, v);
 			case Lua.LUA_TTABLE:
 				ret = toHaxeObj(l, v);
-			// case Lua.LUA_TFUNCTION:
-			// 	ret = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
-			// 	trace("function\n");
+			case Lua.LUA_TFUNCTION:
+				var ref = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
+				ret = cast (function():Void {
+					Lua.rawgeti(lua, Lua.LUA_REGISTRYINDEX, ref);
+					if (Lua.isfunction(lua, -1)) Lua.call(lua, 0, 0);
+					LuaL.unref(lua, Lua.LUA_REGISTRYINDEX, ref);
+				}, Void->Void);
 			// case Lua.LUA_TUSERDATA:
 			// 	ret = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
 			// 	trace("userdata\n");
