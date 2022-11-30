@@ -38,11 +38,10 @@ class Convert {
 	}
 
 	public static inline function arrayToLua(l:State, arr:Array<Any>) {
+		
+		Lua.createtable(l, arr.length, 0);
 
-		var size:Int = arr.length;
-		Lua.createtable(l, size, 0);
-
-		for (i in 0...size) {
+		for (i in 0...arr.length) {
 			Lua.pushnumber(l, i + 1);
 			toLua(l, arr[i]);
 			Lua.settable(l, -3);
@@ -51,15 +50,8 @@ class Convert {
 	}
 
 	static inline function objectToLua(l:State, res:Any) {
-
-		var tLen = 0;
-
-		for(n in Reflect.fields(res))
-		{
-			tLen++;
-		}
-
-		Lua.createtable(l, tLen, 0);
+		
+		Lua.createtable(l, Reflect.fields(res).length, 0);
 		for (n in Reflect.fields(res)){
 			Lua.pushstring(l, n);
 			toLua(l, Reflect.field(res, n));
