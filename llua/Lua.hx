@@ -561,10 +561,12 @@ class Lua_helper {
 		return true;
 
 	}
+	
+	private var cbf:Dynamic = null;
 
 	public static inline function callback_handler(l:State, fname:String):Int {
 
-		var cbf = callbacks.get(fname);
+		cbf = callbacks.get(fname);
 
 		if(cbf == null) {
 			return 0;
@@ -579,34 +581,14 @@ class Lua_helper {
 
 		var ret:Dynamic = null;
 
-		switch (nparams) {
-			case 0:
-				ret = cbf();
-			case 1:
-				ret = cbf(args[0]);
-			case 2:
-				ret = cbf(args[0], args[1]);
-			case 3:
-				ret = cbf(args[0], args[1], args[2]);
-			case 4:
-				ret = cbf(args[0], args[1], args[2], args[3]);
-			case 5:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4]);
-			case 6:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5]);
-			case 7:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
-			case 8:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
-			default:
-				throw("> 5 arguments is not supported");
-		}
+		Reflect.callMethod(this, "cbf", args);
 
 		if(ret != null){
 			Convert.toLua(l, ret);
 		}
 
 		/* return the number of results */
+		cbf = null;
 		return 1;
 
 	} //callback_handler
