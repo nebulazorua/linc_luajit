@@ -585,7 +585,6 @@ class Lua_helper {
 		}
 
 		/* return the number of results */
-		cbf = null;
 		return 1;
 
 	} //callback_handler
