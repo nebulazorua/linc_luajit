@@ -562,11 +562,10 @@ class Lua_helper {
 
 	}
 	
-	private static var cbf:Dynamic = null;
 
 	public static inline function callback_handler(l:State, fname:String):Int {
 
-		cbf = callbacks.get(fname);
+		var cbf = callbacks.get(fname);
 
 		if(cbf == null) {
 			return 0;
@@ -579,7 +578,7 @@ class Lua_helper {
 			args[i] = Convert.fromLua(l, i + 1);
 		}
 
-		var ret:Dynamic = Reflect.callMethod(Lua_helper, "cbf", args);
+		var ret:Dynamic = Reflect.callMethod(null, cbf, args);
 
 		if(ret != null){
 			Convert.toLua(l, ret);
