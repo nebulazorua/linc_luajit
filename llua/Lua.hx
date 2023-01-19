@@ -561,6 +561,7 @@ class Lua_helper {
 		return true;
 
 	}
+	
 
 	public static inline function callback_handler(l:State, fname:String):Int {
 
@@ -577,30 +578,7 @@ class Lua_helper {
 			args[i] = Convert.fromLua(l, i + 1);
 		}
 
-		var ret:Dynamic = null;
-
-		switch (nparams) {
-			case 0:
-				ret = cbf();
-			case 1:
-				ret = cbf(args[0]);
-			case 2:
-				ret = cbf(args[0], args[1]);
-			case 3:
-				ret = cbf(args[0], args[1], args[2]);
-			case 4:
-				ret = cbf(args[0], args[1], args[2], args[3]);
-			case 5:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4]);
-			case 6:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5]);
-			case 7:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
-			case 8:
-				ret = cbf(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
-			default:
-				throw("> 5 arguments is not supported");
-		}
+		var ret:Dynamic = Reflect.callMethod(null, cbf, args);
 
 		if(ret != null){
 			Convert.toLua(l, ret);
