@@ -74,8 +74,8 @@ class Convert {
 	public static inline function fromLua(l:State, v:Int):Any {
 
 		var ret:Any = null;
-
-		switch(Lua.type(l, v)) {
+		var vtype:Int = Lua.type(l, v);
+		switch (vtype) {
 			case Lua.LUA_TNIL:
 				ret = null;
 			case Lua.LUA_TBOOLEAN:
@@ -86,9 +86,13 @@ class Convert {
 				ret = Lua.tostring(l, v);
 			case Lua.LUA_TTABLE:
 				ret = toHaxeObj(l, v);
-			// case Lua.LUA_TFUNCTION:
-			// 	ret = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
-			// 	trace("function\n");
+			case Lua.LUA_TFUNCTION:
+				var ref = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
+				ret = function():Void {
+					Lua.rawgeti(l, Lua.LUA_REGISTRYINDEX, ref);
+					if (Lua.isfunction(l, -1)) Lua.call(l, 0, 0);
+					LuaL.unref(l, Lua.LUA_REGISTRYINDEX, ref);
+				}
 			// case Lua.LUA_TUSERDATA:
 			// 	ret = LuaL.ref(l, Lua.LUA_REGISTRYINDEX);
 			// 	trace("userdata\n");
@@ -100,7 +104,7 @@ class Convert {
 			// 	trace("thread\n");
 			default:
 				ret = null;
-				trace("return value not supported\n"+v);
+				trace("return value not supported\nvalue: "+v+"\ntype: "+vtype);
 		}
 
 		return ret;
