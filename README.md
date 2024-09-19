@@ -1,3 +1,9 @@
+# DEPRACTED! YOU SHOULD USE [SUPERPOWESR04](https://github.com/superpowers04/linc_luajit)'S FORK WHEN YOU CAN!
+
+I havent touched this in forever and super's works on more platforms
+
+
+
 # linc/LuaJIT
 Haxe/hxcpp @:native bindings for [LuaJIT](http://luajit.org/).
 
